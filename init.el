@@ -41,11 +41,21 @@
 (setq custom-file (locate-user-emacs-file "custom.el"))
 
 (require 'init-package)
-;; (require 'init-utils)
-;; (require 'init-site-lisp)
-;; ;; Calls (package-initialize)
-;; (require 'init-elpa)
-;; (require 'init-exec-path)
+(require 'init-basic)
+(require 'init-exec-path)
+(require 'init-windows)
+(require 'init-sessions)
+(require 'init-editor)
+(require 'init-ui)
+(require 'init-minibuffer)
+(require 'init-git)
+(require 'init-projectile)
+
+(require 'init-evil)
+
+
+
+(require 'init-misc)
 
 ;; Allow access from emacsclient
 (add-hook 'after-init-hook

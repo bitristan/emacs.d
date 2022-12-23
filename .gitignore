@@ -3,3 +3,12 @@
 eln-cache/
 straight/
 elpa/
+projectile-bookmarks.eld
+history
+transient/
+.youdao
+recentf
+places
+.emacs.desktop
+.emacs.desktop.lock
+.session
