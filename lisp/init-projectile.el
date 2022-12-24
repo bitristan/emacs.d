@@ -8,7 +8,8 @@
   (setq-default projectile-mode-line-prefix " Proj")
   (when (executable-find "rg")
     (setq-default projectile-generic-command "rg --files --hidden"))
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+  :bind-keymap
+  ("C-c p" . projectile-command-map))
 
 (use-package ibuffer-projectile
   :after projectile)

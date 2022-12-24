@@ -39,5 +39,12 @@
           ivy-previous-line
           ivy-wgrep-change-to-wgrep-mode)))
 
+(use-package tramp
+  :init
+  (setq tramp-default-method "ssh"))
+
+(use-package qrencode-el
+  :straight (qrencode-el :type git :host github :repo "ruediger/qrencode-el"))
+
 (provide 'init-misc)
 ;;; init-misc.el ends here

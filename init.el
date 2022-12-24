@@ -50,6 +50,7 @@
 (require 'init-minibuffer)
 (require 'init-git)
 (require 'init-projectile)
+(require 'init-shell)
 
 (require 'init-evil)
 

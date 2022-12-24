@@ -20,7 +20,8 @@
   :hook (after-init . winum-mode))
 
 (use-package ace-window
-  :bind ("M-o" . ace-window))
+  :init
+  (global-set-key [remap other-window] 'ace-window))
 
 (provide 'init-windows)
 ;;; init-windows.el ends here

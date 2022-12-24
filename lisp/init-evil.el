@@ -66,7 +66,9 @@
   "rr" 'consult-recent-file
   "bb" (lambda () (interactive) (switch-to-buffer nil))
   "kb" 'kill-buffer-and-window
-  "xb" 'consult-buffer)
+  "xb" 'consult-buffer
+  "xx" 'er/expand-region
+  "xs" 'save-buffer)
 
 (my-space-leader-def
   "dd" 'pwd)
