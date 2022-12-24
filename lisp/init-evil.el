@@ -64,11 +64,15 @@
   "xm" 'execute-extended-command
   "yi" 'youdao-dictionary-search-from-input
   "rr" 'consult-recent-file
+  "gg" 'consult-git-grep
+  "yy" 'consult-yank-from-kill-ring
   "bb" (lambda () (interactive) (switch-to-buffer nil))
   "kb" 'kill-buffer-and-window
   "xb" 'consult-buffer
   "xx" 'er/expand-region
-  "xs" 'save-buffer)
+  "xs" 'save-buffer
+  "ff" 'toggle-full-window
+  "fc" 'open-file-from-clipboard)
 
 (my-space-leader-def
   "dd" 'pwd)

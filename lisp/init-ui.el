@@ -13,7 +13,7 @@
   :hook (after-init . doom-modeline-mode)
   :custom
   (doom-modeline-icon nil)
-  (doom-modeline-buffer-file-name-style 'truncate-upto-project))
+  (doom-modeline-buffer-file-name-style 'relative-to-project))
 
 (when (display-graphic-p)
   ;; Set default font

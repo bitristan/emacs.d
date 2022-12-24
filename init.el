@@ -51,12 +51,13 @@
 (require 'init-git)
 (require 'init-projectile)
 (require 'init-shell)
-
 (require 'init-evil)
-
-
-
+(require 'init-org)
 (require 'init-misc)
+(require 'init-programming)
+(require 'init-cc)
+(require 'init-web-mode)
+(require 'init-extra)
 
 ;; Allow access from emacsclient
 (add-hook 'after-init-hook

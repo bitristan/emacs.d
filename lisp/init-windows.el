@@ -23,5 +23,13 @@
   :init
   (global-set-key [remap other-window] 'ace-window))
 
+(defun toggle-full-window()
+  "Toggle full view of selected window."
+  (interactive)
+  ;; @see http://www.gnu.org/software/emacs/manual/html_node/elisp/Splitting-Windows.html
+  (if (window-parent)
+      (delete-other-windows)
+    (winner-undo)))
+
 (provide 'init-windows)
 ;;; init-windows.el ends here
