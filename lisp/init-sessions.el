@@ -4,10 +4,10 @@
 
 (use-package session
   :hook (after-init . session-initialize)
-  :custom
-  (session-save-file (locate-user-emacs-file ".session"))
-  (session-name-disable-regexp "\\(?:\\`'/tmp\\|\\.git/[A-Z_]+\\'\\)")
-  (session-save-file-coding-system 'utf-8))
+  :init
+  (setq session-save-file (locate-user-emacs-file ".session"))
+  (setq session-name-disable-regexp "\\(?:\\`'/tmp\\|\\.git/[A-Z_]+\\'\\)")
+  (setq session-save-file-coding-system 'utf-8))
 
 (setq desktop-path (list user-emacs-directory)
       desktop-auto-save-timeout 600)
