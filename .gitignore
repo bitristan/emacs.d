@@ -12,3 +12,5 @@ places
 .emacs.desktop
 .emacs.desktop.lock
 .session
+custom.el
+.last-package-update-day

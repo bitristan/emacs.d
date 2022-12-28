@@ -1,32 +1,45 @@
-;;; init-package.el --- Use straight.el as package manager -*- lexical-binding: t -*-
+;;; init-package.el --- Use use-package as package manager -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
-;; Install straight.el
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+(require 'package)
 
-;; Install use-package
-(straight-use-package 'use-package)
+(setq package-archives
+      '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+        ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+        ("melpa-stable" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")))
 
-;; Configure use-package to use straight.el by default
-(use-package straight
+(unless (bound-and-true-p package--initialized)
+  (setq package-enable-at-startup nil)
+  (package-initialize))
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+;; Should set before loading `use-package'
+(eval-and-compile
+  (setq use-package-always-ensure t)
+  (setq use-package-always-defer t)
+  (setq use-package-expand-minimally t)
+  (setq use-package-enable-imenu-support t))
+
+(eval-when-compile
+  (require 'use-package))
+
+;; Update GPG keyring for GNU ELPA
+(use-package gnu-elpa-keyring-update)
+
+;; Auto update packages
+(use-package auto-package-update
+  :if (not (daemonp))
   :custom
-  (straight-use-package-by-default t)
-  (straight-vc-git-default-clone-depth 1)
-  (straight-recipes-gnu-elpa-use-mirror t)
-  (use-package-always-defer t)
-  (straight-check-for-modifications nil))
+  (auto-package-update-interval 7) ;; in days
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-delete-old-versions t)
+  (auto-package-update-hide-results t)
+  :config
+  (auto-package-update-maybe))
 
 (provide 'init-package)
 ;;; init-package.el ends here
