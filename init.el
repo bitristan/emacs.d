@@ -41,6 +41,7 @@
 (setq custom-file (locate-user-emacs-file "custom.el"))
 
 (require 'init-package)
+(require 'init-funcs)
 (require 'init-basic)
 (require 'init-exec-path)
 (require 'init-windows)

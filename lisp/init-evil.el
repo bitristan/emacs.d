@@ -71,8 +71,10 @@
   "xb" 'consult-buffer
   "xx" 'er/expand-region
   "xs" 'save-buffer
+  "xf" 'find-file
   "ff" 'toggle-full-window
-  "fc" 'open-file-from-clipboard)
+  "fc" 'open-file-from-clipboard
+  "gs" 'magit-status)
 
 (my-space-leader-def
   "dd" 'pwd)
