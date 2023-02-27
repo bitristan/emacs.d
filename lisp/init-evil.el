@@ -69,6 +69,7 @@
   "bb" (lambda () (interactive) (switch-to-buffer nil))
   "kb" 'kill-buffer-and-window
   "xb" 'consult-buffer
+  "xk" 'kill-buffer
   "xx" 'er/expand-region
   "xs" 'save-buffer
   "xf" 'find-file

@@ -55,9 +55,12 @@
 (require 'init-evil)
 (require 'init-org)
 (require 'init-misc)
+(require 'init-eglot)
 (require 'init-programming)
 (require 'init-cc)
 (require 'init-web-mode)
+(require 'init-go)
+(require 'init-rust)
 (require 'init-extra)
 
 ;; Allow access from emacsclient
