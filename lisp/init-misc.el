@@ -43,7 +43,7 @@
   :init
   (setq tramp-default-method "ssh"))
 
-(setq my-qrencode-dir (concat (file-name-as-directory "site-lisp") "qrencode"))
+(setq my-qrencode-dir (concat (file-name-as-directory "~/.emacs.d/site-lisp") "qrencode"))
 (use-package qrencode
   :load-path my-qrencode-dir
   :init

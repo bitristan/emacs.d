@@ -26,5 +26,13 @@
         (set-visited-file-name new-name)
         (set-buffer-modified-p nil)))))
 
+(defun kill-all-buffers ()
+  (interactive)
+  (mapc 'kill-buffer (buffer-list)))
+
+(defun kill-all-but-current-buffer ()
+  (interactive)
+  (mapc 'kill-buffer (cdr (buffer-list (current-buffer)))))
+
 (provide 'init-funcs)
 ;;; init-funcs.el ends here

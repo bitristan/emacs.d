@@ -2,6 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
+(defconst my-org-dir "~/workspace/github/tinker-s/todo/org"
+  "Directory of org files.")
+
 (use-package org
   :config
   (visual-line-mode 1)
