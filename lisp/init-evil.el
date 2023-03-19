@@ -76,7 +76,9 @@
   "xf" 'find-file
   "ff" 'toggle-full-window
   "fc" 'open-file-from-clipboard
-  "gs" 'magit-status)
+  "gs" 'magit-status
+  "ee" 'eval-expression
+  "tt" 'treemacs)
 
 (my-space-leader-def
   "dd" 'pwd)

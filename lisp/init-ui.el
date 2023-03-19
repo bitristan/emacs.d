@@ -4,7 +4,7 @@
 
 (use-package doom-themes
   :init
-  (load-theme 'doom-dracula t)
+  (load-theme 'leuven t)
   :config
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config))

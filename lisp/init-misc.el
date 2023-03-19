@@ -10,6 +10,8 @@
          ("C-h v" . helpful-variable)
          ("C-h k" . helpful-key)))
 
+(use-package treemacs)
+
 (use-package youdao-dictionary
   :config
   (setq youdao-dictionary-search-history-file (concat user-emacs-directory ".youdao"))
