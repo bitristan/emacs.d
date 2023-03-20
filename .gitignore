@@ -15,3 +15,4 @@ places
 custom.el
 .last-package-update-day
 url/
+.cache/

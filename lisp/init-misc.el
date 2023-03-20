@@ -11,6 +11,8 @@
          ("C-h k" . helpful-key)))
 
 (use-package treemacs)
+(use-package pandoc-mode
+  :hook (markdown-mode . pandoc-mode))
 
 (use-package youdao-dictionary
   :config
