@@ -3,8 +3,9 @@
 ;;; Code:
 
 (use-package rustic
-  :init
-  (setq rustic-lsp-client 'eglot))
+  :custom
+  (rustic-lsp-client 'eglot)
+  (rustic-format-on-save t))
 
 (provide 'init-rust)
 ;;; init-rust.el ends here

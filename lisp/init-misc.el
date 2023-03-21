@@ -47,21 +47,5 @@
   :init
   (setq tramp-default-method "ssh"))
 
-(setq my-qrencode-dir (concat (file-name-as-directory "~/.emacs.d/site-lisp") "qrencode"))
-(use-package qrencode
-  :load-path my-qrencode-dir
-  :init
-  (autoload 'qrencode-url-at-point "qrencode" "" t)
-  (autoload 'qrencode-region "qrencode" "" t)
-  (autoload 'qrencode-from-input "qrencode" "" t)
-  :config
-  (defun qrencode-from-input ()
-    "Encode fro input."
-    (interactive)
-    (let ((text (read-from-minibuffer "Text to encode: ")))
-      (if (null text)
-          (message "No text found.")
-        (qrencode--encode-to-buffer text)))))
-
 (provide 'init-misc)
 ;;; init-misc.el ends here
