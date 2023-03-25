@@ -35,6 +35,7 @@
 (use-package scala-mode)
 (use-package swift-mode)
 (use-package vimrc-mode)
+(use-package solidity-mode)
 (use-package clojure-mode)
 (use-package clojure-snippets
   :after clojure-mode)
