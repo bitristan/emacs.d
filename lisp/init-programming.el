@@ -31,6 +31,7 @@
 (use-package cask-mode)
 (use-package csharp-mode)
 (use-package julia-mode)
+(use-package haskell-mode)
 (use-package powershell)
 (use-package scala-mode)
 (use-package swift-mode)
