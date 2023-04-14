@@ -7,7 +7,7 @@
   :init
   (setq evil-want-keybinding nil)
   (setq evil-want-Y-yank-to-eol t)
-  (setq evil-undo-system 'undo-redo)
+  (setq evil-undo-system 'undo-fu)
   :config
   (setq evil-normal-state-tag (string-trim evil-normal-state-tag)
         evil-emacs-state-tag (string-trim evil-emacs-state-tag)

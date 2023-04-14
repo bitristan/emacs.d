@@ -147,6 +147,7 @@
   :after yasnippet)
 (use-package auto-yasnippet)
 (use-package expand-region)
+(use-package undo-fu)
 
 (provide 'init-editor)
 ;;; init-editor.el ends here
