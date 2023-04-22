@@ -51,5 +51,7 @@
   (lua-indent-close-paren-align nil)
   (lua-indent-string-contents t))
 
+(use-package dart-mode)
+
 (provide 'init-programming)
 ;;; init-programming.el ends here

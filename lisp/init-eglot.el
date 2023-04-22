@@ -6,7 +6,8 @@
   :hook ((go-mode . eglot-ensure)
          (rust-mode . eglot-ensure)
          (c-mode . eglot-ensure)
-         (c++-mode . eglot-ensure))
+         (c++-mode . eglot-ensure)
+         (python-mode . eglot-ensure))
   :custom
   (eglot-autoshutdown nil))
 

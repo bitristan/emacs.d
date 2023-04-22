@@ -59,6 +59,7 @@
 (require 'init-programming)
 (require 'init-cc)
 (require 'init-web-mode)
+(require 'init-python)
 (require 'init-go)
 (require 'init-rust)
 (require 'init-extra)

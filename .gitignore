@@ -18,3 +18,4 @@ url/
 .cache/
 projects
 /projectile.cache
+/anaconda-mode

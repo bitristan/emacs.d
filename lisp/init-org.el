@@ -9,7 +9,7 @@
   :config
   (visual-line-mode 1)
 
-  (setq org-indent-mode t)
+  (setq org-startup-indented t)
   (setq org-agenda-start-with-log-mode t)
   (setq org-log-done 'time)
   (setq org-log-reschedule 'time)
