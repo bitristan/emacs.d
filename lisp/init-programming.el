@@ -34,6 +34,7 @@
 (use-package haskell-mode)
 (use-package powershell)
 (use-package scala-mode)
+(use-package dart-mode)
 (use-package swift-mode)
 (use-package vimrc-mode)
 (use-package solidity-mode)

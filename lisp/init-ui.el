@@ -20,7 +20,7 @@
   (cl-loop for font in '("Fira Code" "Source Code Pro"
                          "Menlo" "Monaco" "DejaVu Sans Mono" "Consolas")
            when (member font (font-family-list))
-           return (set-face-attribute 'default nil :font font :height 110))
+           return (set-face-attribute 'default nil :font font :height (if is-mac 140 110)))
 
   ;; Specify font for all unicode characters
   (cl-loop for font in '("Apple Color Emoji" "Segoe UI Symbol" "Symbola" "Symbol")

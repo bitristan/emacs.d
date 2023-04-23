@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
+(defvar is-mac (eq system-type 'darwin) "")
+
 (defun delete-current-buffer-file ()
   "Delete the current file, and kill the buffer."
   (interactive)
