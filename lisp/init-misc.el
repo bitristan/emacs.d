@@ -47,5 +47,10 @@
   :init
   (setq tramp-default-method "ssh"))
 
+(use-package pdf-tools
+  :hook (pdf-view-mode . (lambda () (internal-show-cursor nil nil)))
+  :config
+  (pdf-tools-install))
+
 (provide 'init-misc)
 ;;; init-misc.el ends here

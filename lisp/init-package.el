@@ -5,9 +5,8 @@
 (require 'package)
 
 (setq package-archives
-      '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-        ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-        ("melpa-stable" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")))
+      '(("gnu" . "https://mirrors.ustc.edu.cn/elpa/gnu/")
+        ("melpa" . "https://mirrors.ustc.edu.cn/elpa/melpa/")))
 
 (unless (bound-and-true-p package--initialized)
   (setq package-enable-at-startup nil)
