@@ -52,5 +52,9 @@
   :config
   (pdf-tools-install))
 
+;; (use-package vterm)
+;; (use-package vterm-toggle
+;;   :after vterm)
+
 (provide 'init-misc)
 ;;; init-misc.el ends here

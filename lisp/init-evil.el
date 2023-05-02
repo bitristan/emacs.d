@@ -16,7 +16,9 @@
         evil-visual-line-tag (string-trim evil-visual-line-tag)
         evil-visual-block-tag (string-trim evil-visual-block-tag)
         evil-visual-screen-line-tag (string-trim evil-visual-screen-line-tag)
-        evil-operator-state-tag (string-trim evil-operator-state-tag)))
+        evil-operator-state-tag (string-trim evil-operator-state-tag))
+  (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+  (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line))
 
 (use-package evil-escape
   :after evil
@@ -78,7 +80,8 @@
   "fc" 'open-file-from-clipboard
   "gs" 'magit-status
   "ee" 'eval-expression
-  "tt" 'treemacs)
+  "tt" 'treemacs
+  "xc" 'vterm-toggle)
 
 (my-space-leader-def
   "dd" 'pwd)

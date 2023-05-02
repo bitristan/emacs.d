@@ -6,9 +6,8 @@
   "Directory of org files.")
 
 (use-package org
+  :hook (org-mode . visual-line-mode)
   :config
-  (visual-line-mode 1)
-
   (setq org-startup-indented t)
   (setq org-agenda-start-with-log-mode t)
   (setq org-log-done 'time)
@@ -98,6 +97,10 @@
 
 (use-package org-bullets
   :hook ((org-mode . org-bullets-mode)))
+
+(use-package org-roam)
+(use-package org-roam-ui
+  :after org-roam)
 
 (provide 'init-org)
 ;;; init-org.el ends here

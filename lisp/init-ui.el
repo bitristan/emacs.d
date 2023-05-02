@@ -2,6 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
+(use-package all-the-icons
+  :if (display-graphic-p))
+
 (use-package doom-themes
   :init
   (load-theme 'leuven t)
@@ -12,7 +15,7 @@
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode)
   :custom
-  (doom-modeline-icon nil)
+  (doom-modeline-icon (display-graphic-p))
   (doom-modeline-buffer-file-name-style 'relative-to-project))
 
 (when (display-graphic-p)
@@ -20,7 +23,7 @@
   (cl-loop for font in '("Fira Code" "Source Code Pro"
                          "Menlo" "Monaco" "DejaVu Sans Mono" "Consolas")
            when (member font (font-family-list))
-           return (set-face-attribute 'default nil :font font :height (if is-mac 140 110)))
+           return (set-face-attribute 'default nil :font font :height (if is-mac 140 100)))
 
   ;; Specify font for all unicode characters
   (cl-loop for font in '("Apple Color Emoji" "Segoe UI Symbol" "Symbola" "Symbol")
