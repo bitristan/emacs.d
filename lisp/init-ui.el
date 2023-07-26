@@ -15,18 +15,18 @@
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode)
   :custom
+  ;; nerd-icons-install-font
   (doom-modeline-icon (display-graphic-p))
   (doom-modeline-buffer-file-name-style 'relative-to-project))
 
 (when (display-graphic-p)
   ;; Set default font
-  (cl-loop for font in '("Fira Code" "Source Code Pro"
-                         "Menlo" "Monaco" "DejaVu Sans Mono" "Consolas")
+  (cl-loop for font in '("DejaVu Sans Mono" "Fira Code" "Source Code Pro" "Menlo" "Monaco" "Consolas")
            when (member font (font-family-list))
-           return (set-face-attribute 'default nil :font font :height (if is-mac 140 100)))
+           return (set-face-attribute 'default nil :font font :height (if is-mac 140 110)))
 
   ;; Specify font for all unicode characters
-  (cl-loop for font in '("Apple Color Emoji" "Segoe UI Symbol" "Symbola" "Symbol")
+  (cl-loop for font in '("Symbola" "Apple Color Emoji" "Segoe UI Symbol" "Symbol")
            when (member font (font-family-list))
            return(set-fontset-font t 'unicode font nil 'prepend))
 
