@@ -9,14 +9,6 @@
   (setq evil-want-Y-yank-to-eol t)
   (setq evil-undo-system 'undo-fu)
   :config
-  (setq evil-normal-state-tag (string-trim evil-normal-state-tag)
-        evil-emacs-state-tag (string-trim evil-emacs-state-tag)
-        evil-insert-state-tag (string-trim evil-insert-state-tag)
-        evil-visual-char-tag (string-trim evil-visual-char-tag)
-        evil-visual-line-tag (string-trim evil-visual-line-tag)
-        evil-visual-block-tag (string-trim evil-visual-block-tag)
-        evil-visual-screen-line-tag (string-trim evil-visual-screen-line-tag)
-        evil-operator-state-tag (string-trim evil-operator-state-tag))
   (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line))
 
