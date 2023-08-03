@@ -9,6 +9,8 @@
          (c++-mode . eglot-ensure)
          (python-mode . eglot-ensure)
          (dart-mode . eglot-ensure))
+  :init
+  (setq completion-ignore-case t)
   :custom
   (eglot-autoshutdown nil))
 
