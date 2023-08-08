@@ -52,6 +52,10 @@
   :config
   (pdf-tools-install))
 
+(use-package rfc-mode
+  :config
+  (setq rfc-mode-directory (expand-file-name "~/rfc/")))
+
 ;; (use-package vterm)
 ;; (use-package vterm-toggle
 ;;   :after vterm)
