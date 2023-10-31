@@ -54,5 +54,9 @@
 
 (use-package dart-mode)
 
+(use-package antlr-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.g4\\'" . antlr-mode)))
+
 (provide 'init-programming)
 ;;; init-programming.el ends here
