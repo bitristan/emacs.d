@@ -53,6 +53,7 @@
   (lua-indent-string-contents t))
 
 (use-package dart-mode)
+(use-package soong-mode)
 
 (use-package antlr-mode
   :init
