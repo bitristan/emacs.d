@@ -18,5 +18,7 @@
 (display-time-mode 1)
 (fset 'yes-or-no-p 'y-or-n-p)
 
+(setq native-comp-async-report-warnings-errors nil)
+
 (provide 'init-basic)
 ;;; init-basic.el ends here
