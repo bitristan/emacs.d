@@ -20,5 +20,8 @@
 
 (setq native-comp-async-report-warnings-errors nil)
 
+(when (boundp 'mac-option-modifier)
+  (setq mac-option-modifier 'meta))
+
 (provide 'init-basic)
 ;;; init-basic.el ends here
