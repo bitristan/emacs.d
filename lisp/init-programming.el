@@ -17,6 +17,11 @@
   (add-to-list 'apheleia-formatters
                '(prettier . (npx "prettier" "--stdin-filepath" filepath "--tab-width=4"))))
 
+(use-package counsel-etags
+  :ensure t
+  :config
+  (push "build" counsel-etags-ignore-directories))
+
 (use-package php-mode)
 (use-package markdown-mode)
 (use-package groovy-mode)
