@@ -23,5 +23,8 @@
 (when (boundp 'mac-option-modifier)
   (setq mac-option-modifier 'meta))
 
+(when (boundp 'mac-command-modifier)
+  (setq mac-command-modifier 'meta))
+
 (provide 'init-basic)
 ;;; init-basic.el ends here
