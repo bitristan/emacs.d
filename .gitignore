@@ -25,3 +25,4 @@ tabsession.el
 persistent-scratch/
 /abbrev_defs
 /org-roam.db
+/tree-sitter/

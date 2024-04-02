@@ -6,6 +6,7 @@
   "Directory of org files.")
 
 (use-package org
+  :defines (org-capture-templates)
   :hook (org-mode . visual-line-mode)
   :config
   (setq org-directory me-org-dir)
@@ -89,16 +90,6 @@
   (use-package ox-gfm
     :init (add-to-list 'org-export-backends 'gfm)))
 
-;; Prettify UI
-(use-package org-modern
-  :after org
-  :hook ((org-mode . org-modern-mode)
-         (org-agenda-finalize . org-modern-agenda)
-         (org-modern-mode . (lambda ()
-                              "Adapt `org-modern-mode'."
-                              ;; Disable Prettify Symbols mode
-                              (setq prettify-symbols-alist nil)
-                              (prettify-symbols-mode -1)))))
 ;; Table of contents
 (use-package toc-org
   :after org
@@ -148,32 +139,8 @@
   (evil-org-agenda-set-keys))
 
 (use-package valign
-  :config
-  (add-hook 'org-mode-hook #'valign-mode))
-
-(use-package org-present
-  :commands
-  (org-present-big
-   org-display-inline-images
-   org-present-hide-cursor
-   org-present-read-only
-   org-present-small
-   org-remove-inline-images
-   org-present-show-cursor
-   org-present-read-write)
-  :init
-  (add-hook 'org-present-mode-hook
-            (lambda ()
-              (org-present-big)
-              (org-display-inline-images)
-              (org-present-hide-cursor)
-              (org-present-read-only)))
-  (add-hook 'org-present-mode-quit-hook
-            (lambda ()
-              (org-present-small)
-              (org-remove-inline-images)
-              (org-present-show-cursor)
-              (org-present-read-write))))
+  :commands (valign-mode)
+  :hook (org-mode . valign-mode))
 
 (use-package org-bullets
   :hook ((org-mode . org-bullets-mode)))
