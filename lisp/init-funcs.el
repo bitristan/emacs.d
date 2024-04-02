@@ -7,6 +7,9 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (require 'init-const))
+
 (defun dos2unix ()
   "Convert the current buffer to UNIX file format."
   (interactive)
@@ -75,6 +78,16 @@
   (or (> (buffer-size) 500000)
       (and (fboundp 'buffer-line-statistics)
            (> (car (buffer-line-statistics)) 10000))))
+
+(defun open-file-from-clipboard ()
+  (interactive)
+  (let* ((name (cond
+                (sys/macp
+                 (shell-command-to-string "pbpaste"))
+                (t
+                 (shell-command-to-string "xclip -selection c -o")))))
+    (if (file-exists-p name)
+        (find-file name))))
 
 (provide 'init-funcs)
 ;;; init-funcs.el ends here

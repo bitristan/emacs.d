@@ -71,15 +71,11 @@ Otherwise the startup will be very slow."
 (require 'init-projectile)
 (require 'init-prog)
 (require 'init-evil)
-
-;; (require 'init-projectile)
-;; (require 'init-programming)
-;; (require 'init-cc)
-;; (require 'init-web-mode)
-;; (require 'init-python)
-;; (require 'init-go)
-;; (require 'init-rust)
-;; (require 'init-extra)
+(require 'init-cc)
+(require 'init-web-mode)
+(require 'init-python)
+(require 'init-go)
+(require 'init-rust)
 
 ;; Allow access from emacsclient
 (add-hook 'after-init-hook
