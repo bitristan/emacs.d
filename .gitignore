@@ -24,3 +24,4 @@ tabsession.el
 .persistent-scratch
 persistent-scratch/
 /abbrev_defs
+/org-roam.db
