@@ -1,8 +1,33 @@
 ;;; init-funcs.el --- Common utility functions.  -*- lexical-binding: t -*-
+
 ;;; Commentary:
+;;
+;; Define some useful functions.
+;;
+
 ;;; Code:
 
-(defvar is-mac (eq system-type 'darwin) "")
+(defun dos2unix ()
+  "Convert the current buffer to UNIX file format."
+  (interactive)
+  (set-buffer-file-coding-system 'undecided-unix nil))
+
+(defun unix2dos ()
+  "Convert the current buffer to DOS file format."
+  (interactive)
+  (set-buffer-file-coding-system 'undecided-dos nil))
+
+(defun copy-file-name ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (if filename
+        (progn
+          (kill-new filename)
+          (message "Copied '%s'" filename))
+      (warn "Current buffer is not attached to a file!"))))
 
 (defun delete-current-buffer-file ()
   "Delete the current file, and kill the buffer."
@@ -35,6 +60,21 @@
 (defun kill-all-but-current-buffer ()
   (interactive)
   (mapc 'kill-buffer (cdr (buffer-list (current-buffer)))))
+
+(defun icons-displayable-p ()
+  "Return non-nil if icons are displayable."
+  (or (featurep 'nerd-icons)
+      (require 'nerd-icons nil t)))
+
+(defun font-installed-p (font-name)
+  "Check if font with FONT-NAME is available."
+  (find-font (font-spec :name font-name)))
+
+(defun too-long-file-p ()
+  "Check whether the file is too long."
+  (or (> (buffer-size) 500000)
+      (and (fboundp 'buffer-line-statistics)
+           (> (car (buffer-line-statistics)) 10000))))
 
 (provide 'init-funcs)
 ;;; init-funcs.el ends here

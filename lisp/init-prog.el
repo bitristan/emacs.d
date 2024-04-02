@@ -1,26 +1,34 @@
-;;; init-programming.el --- Programming configuration.  -*- lexical-binding: t -*-
+;; init-prog.el --- Initialize programming configurations.	-*- lexical-binding: t -*-
+
 ;;; Commentary:
+;;
+;; General programming configurations.
+;;
+
 ;;; Code:
 
-(use-package tree-sitter
-  :hook ((go-mode . tree-sitter-hl-mode)
-         (rust-mode . tree-sitter-hl-mode)))
-(use-package tree-sitter-langs
-  :after tree-sitter)
+;; Tree-sitter support
+(use-package treesit-auto
+  :defines treesit-auto-install
+  :hook (after-init . global-treesit-auto-mode)
+  :init (setq treesit-auto-install 'prompt))
 
-(use-package apheleia
-  :defines (apheleia-formatters)
-  :commands (apheleia-global-mode)
+;; Code styles
+(use-package editorconfig
+  :diminish
+  :hook (after-init . editorconfig-mode))
+
+;; Cross-referencing commands
+(use-package xref
+  :commands xref-show-definitions-completing-read
   :init
-  (apheleia-global-mode 1)
-  :config
-  (add-to-list 'apheleia-formatters
-               '(prettier . (npx "prettier" "--stdin-filepath" filepath "--tab-width=4"))))
+  ;; Use faster search tool
+  (when (executable-find "rg")
+    (setq xref-search-program 'ripgrep))
 
-(use-package counsel-etags
-  :ensure t
-  :config
-  (push "build" counsel-etags-ignore-directories))
+  ;; Select from xref candidates in minibuffer
+  (setq xref-show-definitions-function #'xref-show-definitions-completing-read
+        xref-show-xrefs-function #'xref-show-definitions-completing-read))
 
 (use-package php-mode)
 (use-package markdown-mode)
@@ -46,10 +54,7 @@
 (use-package clojure-mode)
 (use-package clojure-snippets
   :after clojure-mode)
-(use-package fish-mode
-  :hook (fish-mode . (lambda ()
-                       (add-hook 'before-save-hook
-                                 #'fish_indent-before-save))))
+
 (use-package lua-mode
   :custom
   (lua-indent-level 2)
@@ -64,5 +69,5 @@
   :init
   (add-to-list 'auto-mode-alist '("\\.g4\\'" . antlr-mode)))
 
-(provide 'init-programming)
+(provide 'init-prog)
 ;;; init-programming.el ends here

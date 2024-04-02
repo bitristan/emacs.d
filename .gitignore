@@ -19,3 +19,8 @@ url/
 projects
 /projectile.cache
 /anaconda-mode
+.elfeed/
+tabsession.el
+.persistent-scratch
+persistent-scratch/
+/abbrev_defs

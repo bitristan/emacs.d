@@ -28,6 +28,8 @@
 
 (use-package evil-collection
   :after evil
+  :defines evil-collection-magit-use-z-for-folds
+  :commands evil-collection-init
   :demand
   :init
   (setq evil-collection-magit-use-z-for-folds nil)
@@ -36,13 +38,14 @@
 
 (use-package general
   :demand t
+  :commands (my-comma-leader-def my-space-leader-def)
   :config
   (general-create-definer my-comma-leader-def
-                          :prefix ","
-                          :states '(normal visual))
+    :prefix ","
+    :states '(normal visual))
   (general-create-definer my-space-leader-def
-                          :prefix "SPC"
-                          :states '(normal visual)))
+    :prefix "SPC"
+    :states '(normal visual)))
 
 (my-comma-leader-def
   "bf" 'beginning-of-defun
@@ -73,7 +76,8 @@
   "gs" 'magit-status
   "ee" 'eval-expression
   "tt" 'treemacs
-  "xc" 'vterm-toggle)
+  "pf" 'projectile-find-file
+  "fp" 'projectile-find-file)
 
 (my-space-leader-def
   "dd" 'pwd)

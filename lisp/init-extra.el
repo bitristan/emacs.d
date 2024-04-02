@@ -5,7 +5,7 @@
 (defun open-file-from-clipboard ()
   (interactive)
   (let* ((name (cond
-                (is-mac
+                (sys/macp
                  (shell-command-to-string "pbpaste"))
                 (t
                  (shell-command-to-string "xclip -selection c -o")))))

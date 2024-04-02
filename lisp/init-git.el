@@ -7,6 +7,7 @@
 (use-package git-gutter
   :hook (after-init . global-git-gutter-mode)
   :custom (git-gutter:disabled-modes '(image-mode)))
+(use-package browse-at-remote)
 
 (provide 'init-git)
 ;;; init-git.el ends here

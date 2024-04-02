@@ -2,8 +2,13 @@
 ;;; Commentary:
 ;;; Code:
 
-(add-hook 'c-mode-common-hook (lambda ()
-                                (setq c-basic-offset 4)))
+;; C/C++ Mode
+(use-package cc-mode
+  :ensure nil
+  :init (setq-default c-basic-offset 4))
+
+(use-package c-ts-mode
+  :init (setq c-ts-mode-indent-offset 4))
 
 (add-hook 'makefile-mode-hook (lambda ()
                                 (setq indent-tabs-mode t)))
