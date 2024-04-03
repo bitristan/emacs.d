@@ -7,7 +7,7 @@
   :init
   (setq evil-want-keybinding nil)
   (setq evil-want-Y-yank-to-eol t)
-  (setq evil-undo-system 'undo-fu)
+  ;; (setq evil-undo-system 'vundo)
   :config
   (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line))
