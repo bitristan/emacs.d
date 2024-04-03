@@ -23,10 +23,11 @@
          ("C-h k" . helpful-key)))
 
 (use-package youdao-dictionary
-  :config
-  (setq youdao-dictionary-search-history-file (concat user-emacs-directory ".youdao"))
-  (setq youdao-dictionary-app-key (getenv "YOUDAO_APP_KEY"))
-  (setq youdao-dictionary-secret-key (getenv "YOUDAO_SECRET_KEY"))
+  :custom
+  (youdao-dictionary-search-history-file (concat user-emacs-directory ".youdao"))
+  (youdao-dictionary-app-key (getenv "YOUDAO_APP_KEY"))
+  (youdao-dictionary-secret-key (getenv "YOUDAO_SECRET_KEY"))
+  :init
   (with-eval-after-load 'evil
     (evil-define-key 'normal 'youdao-dictionary-mode-map "q" #'quit-window)))
 

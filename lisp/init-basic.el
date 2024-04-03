@@ -46,11 +46,13 @@
 ;; Environment
 (when (or sys/mac-x-p sys/linux-x-p (daemonp))
   (use-package exec-path-from-shell
+    :demand t
+    :commands (exec-path-from-shell-initialize)
+    :custom (exec-path-from-shell-arguments '("-i"))
     :config
     (dolist (var '("YOUDAO_APP_KEY" "YOUDAO_SECRET_KEY"))
       (add-to-list 'exec-path-from-shell-variables var))
-    :custom (exec-path-from-shell-arguments '("-i"))
-    :init (exec-path-from-shell-initialize)))
+    (exec-path-from-shell-initialize)))
 
 ;; Garbage Collector Magic Hack
 (use-package gcmh
