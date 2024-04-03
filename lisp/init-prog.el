@@ -30,6 +30,26 @@
   (setq xref-show-definitions-function #'xref-show-definitions-completing-read
         xref-show-xrefs-function #'xref-show-definitions-completing-read))
 
+;; Show function arglist or variable docstring
+(use-package eldoc
+  :ensure nil
+  :diminish
+  :config
+  (use-package eldoc-box
+    :diminish (eldoc-box-hover-mode eldoc-box-hover-at-point-mode)
+    :custom
+    (eldoc-box-lighter nil)
+    (eldoc-box-only-multi-line t)
+    (eldoc-box-clear-with-C-g t)
+    :custom-face
+    (eldoc-box-border ((t (:inherit posframe-border :background unspecified))))
+    (eldoc-box-body ((t (:inherit tooltip))))
+    :hook ((eglot-managed-mode . eldoc-box-hover-at-point-mode))
+    :config
+    ;; Prettify `eldoc-box' frame
+    (setf (alist-get 'left-fringe eldoc-box-frame-parameters) 8
+          (alist-get 'right-fringe eldoc-box-frame-parameters) 8)))
+
 (use-package php-mode)
 (use-package markdown-mode)
 (use-package groovy-mode)
