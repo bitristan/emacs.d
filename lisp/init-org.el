@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(defconst me-org-dir "~/workspace/github/tinker-s/todo/org"
+(defconst me-org-dir "~/workspace/github/bitristan/todo/org"
   "Directory of org files.")
 
 (use-package org
