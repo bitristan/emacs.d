@@ -1,9 +1,9 @@
-;; init-rust.el --- Initialize Rust configurations.	-*- lexical-binding: t -*-
+;; init-elixir.el --- Initialize elixir configurations.	-*- lexical-binding: t -*-
 
-;; Copyright (C) 2019-2024 Vincent Zhang
+;; Copyright (C) 2019-2024 N.Ahmet BASTUG
 
-;; Author: Vincent Zhang <seagle0128@gmail.com>
-;; URL: https://github.com/seagle0128/.emacs.d
+;; Author: N.Ahmet BASTUG <bastugn@itu.edu.tr>
+;; URL: https://github.com/kosantosbik/.emacs.d
 
 ;; This file is not part of GNU Emacs.
 ;;
@@ -25,19 +25,19 @@
 
 ;;; Commentary:
 ;;
-;; Rust configurations.
+;; Elixir configurations.
 ;;
 
 ;;; Code:
 
-;; Rust
-(use-package rustic
-  :custom (rustic-lsp-client centaur-lsp))
+(use-package elixir-mode
+  :config
+  (use-package alchemist
+    :diminish (alchemist-mode alchemist-phoenix-mode)
+    :hook (((elixir-mode elixir-ts-mode) . alchemist-mode)
+           (alchemist-mode . alchemist-phoenix-mode))))
 
-(use-package ron-mode
-  :mode ("\\.ron" . ron-mode))
-
-(provide 'init-rust)
+(provide 'init-elixir)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-rust.el ends here
+;;; init-elixir.el ends here

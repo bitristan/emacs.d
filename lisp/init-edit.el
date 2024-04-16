@@ -1,5 +1,28 @@
 ;; init-edit.el --- Initialize editing configurations.	-*- lexical-binding: t -*-
 
+;; Copyright (C) 2006-2024 Vincent Zhang
+
+;; Author: Vincent Zhang <seagle0128@gmail.com>
+;; URL: https://github.com/seagle0128/.emacs.d
+
+;; This file is not part of GNU Emacs.
+;;
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 3, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program; see the file COPYING.  If not, write to
+;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+;; Floor, Boston, MA 02110-1301, USA.
+;;
+
 ;;; Commentary:
 ;;
 ;; Editing configurations.
@@ -7,22 +30,92 @@
 
 ;;; Code:
 
-(put 'narrow-to-region 'disabled nil)
-(put 'narrow-to-page 'disabled nil)
-(put 'narrow-to-defun 'disabled nil)
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
-(put 'erase-buffer 'disabled nil)
+;; Delete selection if you insert
+(use-package delsel
+  :ensure nil
+  :hook (after-init . delete-selection-mode))
+
+;; Rectangle
+(use-package rect
+  :ensure nil
+  :bind (:map text-mode-map
+         ("<C-return>" . rect-hydra/body)
+         :map prog-mode-map
+         ("<C-return>" . rect-hydra/body))
+  :init
+  (with-eval-after-load 'org
+    (bind-key "<s-return>" #'rect-hydra/body org-mode-map))
+  (with-eval-after-load 'wgrep
+    (bind-key "<C-return>" #'rect-hydra/body wgrep-mode-map))
+  (with-eval-after-load 'wdired
+    (bind-key "<C-return>" #'rect-hydra/body wdired-mode-map))
+  :pretty-hydra
+  ((:title (pretty-hydra-title "Rectangle" 'mdicon "nf-md-border_all")
+    :color amaranth :body-pre (rectangle-mark-mode) :post (deactivate-mark) :quit-key ("q" "C-g"))
+   ("Move"
+    (("h" backward-char "←")
+     ("j" next-line "↓")
+     ("k" previous-line "↑")
+     ("l" forward-char "→"))
+    "Action"
+    (("w" copy-rectangle-as-kill "copy") ; C-x r M-w
+     ("y" yank-rectangle "yank")         ; C-x r y
+     ("t" string-rectangle "string")     ; C-x r t
+     ("d" kill-rectangle "kill")         ; C-x r d
+     ("c" clear-rectangle "clear")       ; C-x r c
+     ("o" open-rectangle "open"))        ; C-x r o
+    "Misc"
+    (("N" rectangle-number-lines "number lines")        ; C-x r N
+     ("e" rectangle-exchange-point-and-mark "exchange") ; C-x C-x
+     ("u" undo "undo")
+     ("r" (if (region-active-p)
+              (deactivate-mark)
+            (rectangle-mark-mode 1))
+      "reset")))))
 
 ;; Automatically reload files was modified by external program
 (use-package autorevert
-  :hook (after-init . global-auto-revert-mode)
-  :custom
-  (revert-without-query (list "\\.png$" "\\.svg$"))
-  (global-auto-revert-non-file-buffers t))
+  :ensure nil
+  :diminish
+  :hook (after-init . global-auto-revert-mode))
+
+;; Pass a URL to a WWW browser
+(use-package browse-url
+  :ensure nil
+  :defines dired-mode-map
+  :bind (("C-c C-z ." . browse-url-at-point)
+         ("C-c C-z b" . browse-url-of-buffer)
+         ("C-c C-z r" . browse-url-of-region)
+         ("C-c C-z u" . browse-url)
+         ("C-c C-z e" . browse-url-emacs)
+         ("C-c C-z v" . browse-url-of-file))
+  :init
+  (with-eval-after-load 'dired
+    (bind-key "C-c C-z f" #'browse-url-of-file dired-mode-map))
+
+  ;; For WSL
+  (let ((cmd-exe "/mnt/c/Windows/System32/cmd.exe")
+        (cmd-args '("/c" "start")))
+    (when (file-exists-p cmd-exe)
+      (setq browse-url-generic-program  cmd-exe
+            browse-url-generic-args     cmd-args
+            browse-url-browser-function 'browse-url-generic)
+      (when (daemonp)
+        (advice-add #'browse-url :override #'browse-url-generic)))))
+
+;; Click to browse URL or to send to e-mail address
+(use-package goto-addr
+  :ensure nil
+  :hook ((text-mode . goto-address-mode)
+         (prog-mode . goto-address-prog-mode)))
 
 ;; Jump to things in Emacs tree-style
 (use-package avy
+  :bind (("C-:"   . avy-goto-char)
+         ("C-'"   . avy-goto-char-2)
+         ("M-g l" . avy-goto-line)
+         ("M-g w" . avy-goto-word-1)
+         ("M-g e" . avy-goto-word-0))
   :hook (after-init . avy-setup-default)
   :config (setq avy-all-windows nil
                 avy-all-windows-alt t
@@ -33,6 +126,17 @@
 (use-package avy-zap
   :bind (("M-z" . avy-zap-to-char-dwim)
          ("M-Z" . avy-zap-up-to-char-dwim)))
+
+;; Quickly follow links
+(use-package link-hint
+  :bind (("M-o" . link-hint-open-link)
+         ("C-c l o" . link-hint-open-link)
+         ("C-c l c" . link-hint-copy-link)))
+
+;; Jump to Chinese characters
+(use-package ace-pinyin
+  :diminish
+  :hook (after-init . ace-pinyin-global-mode))
 
 ;; Minor mode to aggressively keep your code always indented
 (use-package aggressive-indent
@@ -80,6 +184,15 @@
                   (diminish (cdr pair)))
                 beginend-modes))
 
+;; Drag stuff (lines, words, region, etc...) around
+(use-package drag-stuff
+  :diminish
+  :autoload drag-stuff-define-keys
+  :hook (after-init . drag-stuff-global-mode)
+  :config
+  (add-to-list 'drag-stuff-except-modes 'org-mode)
+  (drag-stuff-define-keys))
+
 ;; A comprehensive visual interface to diff & patch
 (use-package ediff
   :ensure nil
@@ -117,6 +230,7 @@
 
 ;; Increase selected region by semantic units
 (use-package expand-region
+  :bind ("C-=" . er/expand-region)
   :config
   (when (centaur-treesit-available-p)
     (defun treesit-mark-bigger-node ()
@@ -134,6 +248,44 @@
         (goto-char node-start)))
     (add-to-list 'er/try-expand-list 'treesit-mark-bigger-node)))
 
+;; Multiple cursors
+(use-package multiple-cursors
+  :bind (("C-c m" . multiple-cursors-hydra/body)
+         ("C-S-c C-S-c"   . mc/edit-lines)
+         ("C->"           . mc/mark-next-like-this)
+         ("C-<"           . mc/mark-previous-like-this)
+         ("C-c C-<"       . mc/mark-all-like-this)
+         ("C-M->"         . mc/skip-to-next-like-this)
+         ("C-M-<"         . mc/skip-to-previous-like-this)
+         ("s-<mouse-1>"   . mc/add-cursor-on-click)
+         ("C-S-<mouse-1>" . mc/add-cursor-on-click)
+         :map mc/keymap
+         ("C-|" . mc/vertical-align-with-space))
+  :pretty-hydra
+  ((:title (pretty-hydra-title "Multiple Cursors" 'mdicon "nf-md-cursor_move")
+    :color amaranth :quit-key ("q" "C-g"))
+   ("Up"
+	(("p" mc/mark-previous-like-this "prev")
+	 ("P" mc/skip-to-previous-like-this "skip")
+	 ("M-p" mc/unmark-previous-like-this "unmark")
+	 ("|" mc/vertical-align "align with input CHAR"))
+    "Down"
+    (("n" mc/mark-next-like-this "next")
+	 ("N" mc/skip-to-next-like-this "skip")
+	 ("M-n" mc/unmark-next-like-this "unmark"))
+    "Misc"
+    (("l" mc/edit-lines "edit lines" :exit t)
+	 ("a" mc/mark-all-like-this "mark all" :exit t)
+	 ("s" mc/mark-all-in-region-regexp "search" :exit t)
+     ("<mouse-1>" mc/add-cursor-on-click "click"))
+    "% 2(mc/num-cursors) cursor%s(if (> (mc/num-cursors) 1) \"s\" \"\")"
+	(("0" mc/insert-numbers "insert numbers" :exit t)
+	 ("A" mc/insert-letters "insert letters" :exit t)))))
+
+;; Smartly select region, rectangle, multi cursors
+(use-package smart-region
+  :hook (after-init . smart-region-on))
+
 ;; On-the-fly spell checker
 (use-package flyspell
   :ensure nil
@@ -148,14 +300,31 @@
               ispell-program-name "aspell"
               ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together")))
 
+;; Hungry deletion
+(use-package hungry-delete
+  :diminish
+  :hook (after-init . global-hungry-delete-mode)
+  :init (setq hungry-delete-chars-to-skip " \t\f\v"
+              hungry-delete-except-modes
+              '(help-mode minibuffer-mode minibuffer-inactive-mode calc-mode)))
+
 ;; Move to the beginning/end of line or code
 (use-package mwim
   :bind (([remap move-beginning-of-line] . mwim-beginning)
          ([remap move-end-of-line] . mwim-end)))
 
-(use-package vundo
+;; Treat undo history as a tree
+(if emacs/>=28p
+    (use-package vundo
       :bind ("C-x u" . vundo)
       :config (setq vundo-glyph-alist vundo-unicode-symbols))
+  (use-package undo-tree
+    :diminish
+    :hook (after-init . global-undo-tree-mode)
+    :init (setq undo-tree-visualizer-timestamps t
+                undo-tree-visualizer-diff t
+                undo-tree-enable-undo-in-region nil
+                undo-tree-auto-save-history nil)))
 
 ;; Goto last change
 (use-package goto-chg
@@ -168,23 +337,104 @@
   :hook ((prog-mode . subword-mode)
          (minibuffer-setup . subword-mode)))
 
-;; Copy&paste GUI clipboard from text terminal
-(use-package xclip
-  :hook (after-init . xclip-mode)
+;; Flexible text folding
+(use-package hideshow
+  :ensure nil
+  :diminish hs-minor-mode
+  :pretty-hydra
+  ((:title (pretty-hydra-title "HideShow" 'octicon "nf-oct-fold")
+    :color amaranth :quit-key ("q" "C-g"))
+   ("Fold"
+    (("t" hs-toggle-all "toggle all")
+     ("a" hs-show-all "show all")
+     ("i" hs-hide-all "hide all")
+     ("g" hs-toggle-hiding "toggle hiding")
+     ("c" hs-cycle "cycle block")
+     ("s" hs-show-block "show block")
+     ("h" hs-hide-block "hide block")
+     ("l" hs-hide-level "hide level"))
+    "Move"
+    (("C-a" mwim-beginning-of-code-or-line "⭰")
+     ("C-e" mwim-end-of-code-or-line "⭲")
+     ("C-b" backward-char "←")
+     ("C-n" next-line "↓")
+     ("C-p" previous-line "↑")
+     ("C-f" forward-char "→")
+     ("C-v" pager-page-down "↘")
+     ("M-v" pager-page-up "↖")
+     ("M-<" beginning-of-buffer "⭶")
+     ("M->" end-of-buffer "⭸"))))
+  :bind (:map hs-minor-mode-map
+         ("C-~" . hideshow-hydra/body)
+         ("C-S-<escape>" . hideshow-hydra/body))
+  :hook (prog-mode . hs-minor-mode)
   :config
-  ;; @see https://github.com/microsoft/wslg/issues/15#issuecomment-1796195663
-  (when (eq xclip-method 'wl-copy)
-    (set-clipboard-coding-system 'gbk) ; for wsl
-    (setq interprogram-cut-function
-          (lambda (text)
-            (start-process "xclip"  nil xclip-program "--trim-newline" "--type" "text/plain;charset=utf-8" text)))))
+  ;; More functions
+  ;; @see https://karthinks.com/software/simple-folding-with-hideshow/
+  (defun hs-cycle (&optional level)
+    (interactive "p")
+    (let (message-log-max
+          (inhibit-message t))
+      (if (= level 1)
+          (pcase last-command
+            ('hs-cycle
+             (hs-hide-level 1)
+             (setq this-command 'hs-cycle-children))
+            ('hs-cycle-children
+             (save-excursion (hs-show-block))
+             (setq this-command 'hs-cycle-subtree))
+            ('hs-cycle-subtree
+             (hs-hide-block))
+            (_
+             (if (not (hs-already-hidden-p))
+                 (hs-hide-block)
+               (hs-hide-level 1)
+               (setq this-command 'hs-cycle-children))))
+        (hs-hide-level level)
+        (setq this-command 'hs-hide-level))))
 
-(use-package display-fill-column-indicator
-  :custom
-  (display-fill-column-indicator-character ?\u254e)
-  :hook (prog-mode . display-fill-column-indicator-mode))
+  (defun hs-toggle-all ()
+    "Toggle hide/show all."
+    (interactive)
+    (pcase last-command
+      ('hs-toggle-all
+       (save-excursion (hs-show-all))
+       (setq this-command 'hs-global-show))
+      (_ (hs-hide-all))))
 
-(use-package sudo-edit)
+  ;; Display line counts
+  (defun hs-display-code-line-counts (ov)
+    "Display line counts when hiding codes."
+    (when (eq 'code (overlay-get ov 'hs))
+      (overlay-put ov 'display
+                   (concat
+                    " "
+                    (propertize
+                     (if (char-displayable-p ?⏷) "⏷" "...")
+                     'face 'shadow)
+                    (propertize
+                     (format " (%d lines)"
+                             (count-lines (overlay-start ov)
+                                          (overlay-end ov)))
+                     'face '(:inherit shadow :height 0.8))
+                    " "))))
+  (setq hs-set-up-overlay #'hs-display-code-line-counts))
+
+;; Copy&paste GUI clipboard from text terminal
+(unless sys/win32p
+  (use-package xclip
+    :hook (after-init . xclip-mode)
+    :config
+    ;; @see https://github.com/microsoft/wslg/issues/15#issuecomment-1796195663
+    (when (eq xclip-method 'wl-copy)
+      (set-clipboard-coding-system 'gbk) ; for wsl
+      (setq interprogram-cut-function
+            (lambda (text)
+              (start-process "xclip"  nil xclip-program "--trim-newline" "--type" "text/plain;charset=utf-8" text))))))
+
+;; Open files as another user
+(unless sys/win32p
+  (use-package sudo-edit))
 
 ;; Narrow/Widen
 (use-package fancy-narrow
@@ -195,155 +445,7 @@
 (use-package so-long
   :hook (after-init . global-so-long-mode))
 
-;; Highlight the current line
-(use-package hl-line
-  :ensure nil
-  :hook ((after-init . global-hl-line-mode)
-         ((dashboard-mode eshell-mode shell-mode term-mode vterm-mode) .
-          (lambda () (setq-local global-hl-line-mode nil)))))
-
-;; Highlight symbols
-(use-package symbol-overlay
-  :diminish
-  :bind (("M-i" . symbol-overlay-put)
-         ("M-I" . symbol-overlay-remove-all)
-         ("M-n" . symbol-overlay-jump-next)
-         ("M-p" . symbol-overlay-jump-prev)
-         ("M-N" . symbol-overlay-switch-forward)
-         ("M-P" . symbol-overlay-switch-backward))
-  :hook (((prog-mode yaml-mode) . symbol-overlay-mode)
-         (iedit-mode            . turn-off-symbol-overlay)
-         (iedit-mode-end        . turn-on-symbol-overlay))
-  :init (setq symbol-overlay-idle-time 0.1)
-  :config
-  (with-no-warnings
-    ;; Disable symbol highlighting while selecting
-    (defun turn-off-symbol-overlay (&rest _)
-      "Turn off symbol highlighting."
-      (interactive)
-      (symbol-overlay-mode -1))
-    (advice-add #'set-mark :after #'turn-off-symbol-overlay)
-
-    (defun turn-on-symbol-overlay (&rest _)
-      "Turn on symbol highlighting."
-      (interactive)
-      (when (derived-mode-p 'prog-mode 'yaml-mode)
-        (symbol-overlay-mode 1)))
-    (advice-add #'deactivate-mark :after #'turn-on-symbol-overlay)))
-
-;; Colorize color names in buffers
-(use-package rainbow-mode
-  :diminish
-  :defines helpful-mode-map
-  :bind (:map help-mode-map
-              ("w" . rainbow-mode))
-  :hook ((html-mode php-mode helpful-mode) . rainbow-mode)
-  :init (with-eval-after-load 'helpful
-          (bind-key "w" #'rainbow-mode helpful-mode-map))
-  :config
-  (with-no-warnings
-    ;; HACK: Use overlay instead of text properties to override `hl-line' faces.
-    ;; @see https://emacs.stackexchange.com/questions/36420
-    (defun my-rainbow-colorize-match (color &optional match)
-      (let* ((match (or match 0))
-             (ov (make-overlay (match-beginning match) (match-end match))))
-        (overlay-put ov 'ovrainbow t)
-        (overlay-put ov 'face `((:foreground ,(if (> 0.5 (rainbow-x-color-luminance color))
-                                                  "white" "black"))
-                                (:background ,color)))))
-    (advice-add #'rainbow-colorize-match :override #'my-rainbow-colorize-match)
-
-    (defun my-rainbow-clear-overlays ()
-      "Clear all rainbow overlays."
-      (remove-overlays (point-min) (point-max) 'ovrainbow t))
-    (advice-add #'rainbow-turn-off :after #'my-rainbow-clear-overlays)))
-
-;; Highlight brackets according to their depth
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
-
-;; Highlight TODO and similar keywords in comments and strings
-(use-package hl-todo
-  :custom-face
-  (hl-todo ((t (:inherit default :height 0.9 :width condensed :weight bold :underline nil :inverse-video t))))
-  :hook ((after-init . global-hl-todo-mode)
-         (hl-todo-mode . (lambda ()
-                           (add-hook 'flymake-diagnostic-functions
-                                     #'hl-todo-flymake nil t))))
-  :init (setq hl-todo-require-punctuation t
-              hl-todo-highlight-punctuation ":")
-  :config
-  (dolist (keyword '("BUG" "DEFECT" "ISSUE"))
-    (add-to-list 'hl-todo-keyword-faces `(,keyword . "#e45649")))
-  (dolist (keyword '("TRICK" "WORKAROUND"))
-    (add-to-list 'hl-todo-keyword-faces `(,keyword . "#d0bf8f")))
-  (dolist (keyword '("DEBUG" "STUB"))
-    (add-to-list 'hl-todo-keyword-faces `(,keyword . "#7cb8bb")))
-
-  (defun hl-todo-rg (regexp &optional files dir)
-    "Use `rg' to find all TODO or similar keywords."
-    (interactive
-     (progn
-       (unless (require 'rg nil t)
-         (error "`rg' is not installed"))
-       (let ((regexp (replace-regexp-in-string "\\\\[<>]*" "" (hl-todo--regexp))))
-         (list regexp
-               (rg-read-files)
-               (read-directory-name "Base directory: " nil default-directory t)))))
-    (rg regexp files dir))
-
-  (defun hl-todo-rg-project ()
-    "Use `rg' to find all TODO or similar keywords in current project."
-    (interactive)
-    (unless (require 'rg nil t)
-      (error "`rg' is not installed"))
-    (rg-project (replace-regexp-in-string "\\\\[<>]*" "" (hl-todo--regexp)) "everything")))
-
-;; Highlight uncommitted changes using VC
-(use-package diff-hl
-  :custom (diff-hl-draw-borders nil)
-  :custom-face
-  (diff-hl-change ((t (:inherit custom-changed :foreground unspecified :background unspecified))))
-  (diff-hl-insert ((t (:inherit diff-added :background unspecified))))
-  (diff-hl-delete ((t (:inherit diff-removed :background unspecified))))
-  :bind (:map diff-hl-command-map
-              ("SPC" . diff-hl-mark-hunk))
-  :hook ((after-init . global-diff-hl-mode)
-         (after-init . global-diff-hl-show-hunk-mouse-mode)
-         (dired-mode . diff-hl-dired-mode))
-  :config
-  ;; Highlight on-the-fly
-  (diff-hl-flydiff-mode 1)
-
-  ;; Set fringe style
-  (setq-default fringes-outside-margins t)
-
-  (with-no-warnings
-    (defun my-diff-hl-fringe-bmp-function (_type _pos)
-      "Fringe bitmap function for use as `diff-hl-fringe-bmp-function'."
-      (define-fringe-bitmap 'my-diff-hl-bmp
-        (vector (if sys/linuxp #b11111100 #b11100000))
-        1 8
-        '(center t)))
-    (setq diff-hl-fringe-bmp-function #'my-diff-hl-fringe-bmp-function)
-
-    (unless (display-graphic-p)
-      ;; Fall back to the display margin since the fringe is unavailable in tty
-      (diff-hl-margin-mode 1)
-      ;; Avoid restoring `diff-hl-margin-mode'
-      (with-eval-after-load 'desktop
-        (add-to-list 'desktop-minor-mode-table
-                     '(diff-hl-margin-mode nil))))
-
-    ;; Integration with magit
-    (with-eval-after-load 'magit
-      (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
-      (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))))
-
-;; Pulse modified region
-(use-package goggles
-  :diminish
-  :hook ((prog-mode text-mode) . goggles-mode))
-
 (provide 'init-edit)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-edit.el ends here

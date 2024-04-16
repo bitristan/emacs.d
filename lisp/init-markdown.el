@@ -1,5 +1,28 @@
 ;; init-markdown.el --- Initialize markdown configurations.	-*- lexical-binding: t -*-
 
+;; Copyright (C) 2009-2024 Vincent Zhang
+
+;; Author: Vincent Zhang <seagle0128@gmail.com>
+;; URL: https://github.com/seagle0128/.emacs.d
+
+;; This file is not part of GNU Emacs.
+;;
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 3, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program; see the file COPYING.  If not, write to
+;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+;; Floor, Boston, MA 02110-1301, USA.
+;;
+
 ;;; Commentary:
 ;;
 ;; Markdown configurations.
@@ -80,7 +103,7 @@ mermaid.initialize({
   (use-package grip-mode
     :defines org-mode-map
     :bind (:map markdown-mode-command-map
-                ("g" . grip-mode))
+           ("g" . grip-mode))
     :init
     (with-eval-after-load 'org
       (bind-key "C-c g" #'grip-mode org-mode-map))
@@ -94,7 +117,7 @@ mermaid.initialize({
   (use-package markdown-toc
     :diminish
     :bind (:map markdown-mode-command-map
-                ("r" . markdown-toc-generate-or-refresh-toc))
+           ("r" . markdown-toc-generate-or-refresh-toc))
     :hook (markdown-mode . markdown-toc-mode)
     :init (setq markdown-toc-indentation-space 2
                 markdown-toc-header-toc-title "\n## Table of Contents"
@@ -114,10 +137,6 @@ mermaid.initialize({
           (eglot--manage-mode 1))
          (t
           (apply fn args)))))))
-
-(use-package pandoc-mode
-  :after markdown-mode
-  :hook (markdown-mode . pandoc-mode))
 
 (provide 'init-markdown)
 

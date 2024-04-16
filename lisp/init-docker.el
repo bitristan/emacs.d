@@ -1,4 +1,4 @@
-;; init-rust.el --- Initialize Rust configurations.	-*- lexical-binding: t -*-
+;; init-docker.el --- Initialize docker configurations.	-*- lexical-binding: t -*-
 
 ;; Copyright (C) 2019-2024 Vincent Zhang
 
@@ -25,19 +25,28 @@
 
 ;;; Commentary:
 ;;
-;; Rust configurations.
+;; Docker configurations.
 ;;
 
 ;;; Code:
 
-;; Rust
-(use-package rustic
-  :custom (rustic-lsp-client centaur-lsp))
+(eval-when-compile
+  (require 'init-const))
 
-(use-package ron-mode
-  :mode ("\\.ron" . ron-mode))
+;; Docker
+(use-package docker
+  :defines docker-image-run-arguments
+  :bind ("C-c D" . docker)
+  :init (setq docker-image-run-arguments '("-i" "-t" "--rm")
+              docker-container-shell-file-name "/bin/bash"))
 
-(provide 'init-rust)
+;;`tramp-container' is builtin since 29
+(unless emacs/>=29p
+  (use-package docker-tramp))
+
+(use-package dockerfile-mode)
+
+(provide 'init-docker)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-rust.el ends here
+;;; init-docker.el ends here

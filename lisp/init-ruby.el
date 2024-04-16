@@ -1,6 +1,6 @@
-;; init-rust.el --- Initialize Rust configurations.	-*- lexical-binding: t -*-
+;; init-ruby.el --- Initialize ruby configurations.	-*- lexical-binding: t -*-
 
-;; Copyright (C) 2019-2024 Vincent Zhang
+;; Copyright (C) 2010-2024 Vincent Zhang
 
 ;; Author: Vincent Zhang <seagle0128@gmail.com>
 ;; URL: https://github.com/seagle0128/.emacs.d
@@ -25,19 +25,39 @@
 
 ;;; Commentary:
 ;;
-;; Rust configurations.
+;; Ruby configurations.
 ;;
 
 ;;; Code:
 
-;; Rust
-(use-package rustic
-  :custom (rustic-lsp-client centaur-lsp))
+;; Run a Ruby process in a buffer
+(use-package inf-ruby
+  :hook ((ruby-mode . inf-ruby-minor-mode)
+         (compilation-filter . inf-ruby-auto-enter)))
 
-(use-package ron-mode
-  :mode ("\\.ron" . ron-mode))
+;; Ruby YARD comments
+(use-package yard-mode
+  :diminish
+  :hook (ruby-mode . yard-mode))
 
-(provide 'init-rust)
+;; Ruby refactoring helpers
+(use-package ruby-refactor
+  :diminish
+  :hook (ruby-mode . ruby-refactor-mode-launch))
+
+;; Yet Another RI interface for Emacs
+(use-package yari
+  :bind (:map ruby-mode-map ([f1] . yari)))
+
+;; RSpec
+(use-package rspec-mode
+  :diminish
+  :autoload rspec-install-snippets
+  :hook (dired-mode . rspec-dired-mode)
+  :config (with-eval-after-load 'yasnippet
+            (rspec-install-snippets)))
+
+(provide 'init-ruby)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-rust.el ends here
+;;; init-ruby.el ends here

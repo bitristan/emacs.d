@@ -1,6 +1,6 @@
-;; init-rust.el --- Initialize Rust configurations.	-*- lexical-binding: t -*-
+;; init-kill-ring.el --- Initialize kill-ring configurations.	-*- lexical-binding: t -*-
 
-;; Copyright (C) 2019-2024 Vincent Zhang
+;; Copyright (C) 2006-2024 Vincent Zhang
 
 ;; Author: Vincent Zhang <seagle0128@gmail.com>
 ;; URL: https://github.com/seagle0128/.emacs.d
@@ -25,19 +25,29 @@
 
 ;;; Commentary:
 ;;
-;; Rust configurations.
+;; Kill ring configurations.
 ;;
 
 ;;; Code:
 
-;; Rust
-(use-package rustic
-  :custom (rustic-lsp-client centaur-lsp))
+(setq kill-ring-max 200)
 
-(use-package ron-mode
-  :mode ("\\.ron" . ron-mode))
+;; Save clipboard contents into kill-ring before replace them
+(setq save-interprogram-paste-before-kill t)
 
-(provide 'init-rust)
+;; Kill & Mark things easily
+(use-package easy-kill
+  :bind (([remap kill-ring-save] . easy-kill)
+         ([remap mark-sexp] . easy-mark)))
+
+;; Interactively insert and edit items from kill-ring
+(use-package browse-kill-ring
+  :bind ("C-c k" . browse-kill-ring)
+  :hook (after-init . browse-kill-ring-default-keybindings)
+  :init (setq browse-kill-ring-separator "────────────────"
+              browse-kill-ring-separator-face 'shadow))
+
+(provide 'init-kill-ring)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-rust.el ends here
+;;; init-kill-ring.el ends here

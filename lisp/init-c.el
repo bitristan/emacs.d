@@ -1,6 +1,6 @@
-;; init-rust.el --- Initialize Rust configurations.	-*- lexical-binding: t -*-
+;; init-c.el --- Initialize c configurations.	-*- lexical-binding: t -*-
 
-;; Copyright (C) 2019-2024 Vincent Zhang
+;; Copyright (C) 2006-2024 Vincent Zhang
 
 ;; Author: Vincent Zhang <seagle0128@gmail.com>
 ;; URL: https://github.com/seagle0128/.emacs.d
@@ -25,19 +25,26 @@
 
 ;;; Commentary:
 ;;
-;; Rust configurations.
+;; C/C++ configuration.
 ;;
 
 ;;; Code:
 
-;; Rust
-(use-package rustic
-  :custom (rustic-lsp-client centaur-lsp))
+(eval-when-compile
+  (require 'init-custom))
 
-(use-package ron-mode
-  :mode ("\\.ron" . ron-mode))
+;; C/C++ Mode
+(use-package cc-mode
+  :ensure nil
+  :bind (:map c-mode-base-map
+         ("<f12>" . compile))
+  :init (setq-default c-basic-offset 4))
 
-(provide 'init-rust)
+(when (centaur-treesit-available-p)
+  (use-package c-ts-mode
+    :init (setq c-ts-mode-indent-offset 4)))
+
+(provide 'init-c)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-rust.el ends here
+;;; init-c.el ends here

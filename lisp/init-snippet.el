@@ -1,6 +1,6 @@
-;; init-rust.el --- Initialize Rust configurations.	-*- lexical-binding: t -*-
+;; init-snippet.el --- Initialize snippet configurations.	-*- lexical-binding: t -*-
 
-;; Copyright (C) 2019-2024 Vincent Zhang
+;; Copyright (C) 2006-2024 Vincent Zhang
 
 ;; Author: Vincent Zhang <seagle0128@gmail.com>
 ;; URL: https://github.com/seagle0128/.emacs.d
@@ -25,19 +25,24 @@
 
 ;;; Commentary:
 ;;
-;; Rust configurations.
+;; Snippet configurations.
 ;;
 
 ;;; Code:
 
-;; Rust
-(use-package rustic
-  :custom (rustic-lsp-client centaur-lsp))
+;; Yet another snippet extension
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :hook (after-init . yas-global-mode))
 
-(use-package ron-mode
-  :mode ("\\.ron" . ron-mode))
+;; Collection of yasnippet snippets
+(use-package yasnippet-snippets)
 
-(provide 'init-rust)
+;; Yasnippet Completion At Point Function
+(use-package yasnippet-capf
+  :init (add-to-list 'completion-at-point-functions #'yasnippet-capf))
+
+(provide 'init-snippet)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-rust.el ends here
+;;; init-snippet.el ends here
