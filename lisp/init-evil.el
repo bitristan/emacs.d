@@ -51,6 +51,54 @@
   (evilmi-shortcut "m")
   :hook (evil-mode . global-evil-matchit-mode))
 
+(use-package evil-collection
+  :hook
+  (evil-mode . evil-collection-init))
+
+(use-package evil-commentary
+  :hook
+  (evil-mode . evil-commentary-mode))
+
+(use-package evil-lion
+  :custom
+  (evil-lion-squeeze-spaces nil)
+  :hook
+  (evil-mode . evil-lion-mode))
+
+(use-package general
+  :commands
+  (my-comma-leader-def)
+  :config
+  (general-create-definer my-comma-leader-def
+    :prefix ","
+    :states '(normal visual)))
+
+(my-comma-leader-def
+  "bf" 'beginning-of-defun
+  "rr" 'consult-recent-file
+  "gg" 'consult-git-grep
+  "yy" 'consult-yank-from-kill-ring
+  "bb" (lambda () (interactive) (switch-to-buffer nil))
+  "kb" 'kill-buffer-and-window
+  "xb" 'consult-buffer
+  "xk" 'kill-buffer
+  "xx" 'er/expand-region
+  "xs" 'save-buffer
+  "xf" 'find-file
+  "gs" 'magit-status
+  "ee" 'eval-expression
+  "0" 'winum-select-window-0-or-10
+  "1" 'winum-select-window-1
+  "2" 'winum-select-window-2
+  "3" 'winum-select-window-3
+  "4" 'winum-select-window-4
+  "5" 'winum-select-window-5
+  "6" 'winum-select-window-6
+  "7" 'winum-select-window-7
+  "8" 'winum-select-window-8
+  "9" 'winum-select-window-9
+  "xm" 'execute-extended-command)
+
 (provide 'init-evil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
