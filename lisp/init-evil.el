@@ -35,6 +35,7 @@
   :init
   ;; (setq evil-undo-system 'vundo)
   :custom
+  (evil-undo-system 'undo-redo)
   (evil-want-keybinding nil))
 
 (use-package evil-escape
