@@ -88,6 +88,7 @@
   "xf" 'find-file
   "gs" 'magit-status
   "ee" 'eval-expression
+  "gf" 'magit-find-file
   "0" 'winum-select-window-0-or-10
   "1" 'winum-select-window-1
   "2" 'winum-select-window-2
