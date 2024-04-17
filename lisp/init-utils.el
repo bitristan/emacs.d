@@ -277,9 +277,8 @@
               process-environment))
     (advice-add #'list-environment-entries :override #'my-list-environment-entries)))
 
-(unless sys/win32p
-  (use-package daemons)                 ; system services/daemons
-  (use-package tldr))
+(use-package daemons) ; system services/daemons
+(use-package tldr)
 
 (provide 'init-utils)
 

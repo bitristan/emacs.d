@@ -51,10 +51,6 @@ Put private configurations to override defaults here.")
 Put private configurations to override defaults here.
 Loaded by `org-babel-load-file'.")
 
-(defconst sys/win32p
-  (eq system-type 'windows-nt)
-  "Are we running on a WinTel system?")
-
 (defconst sys/linuxp
   (eq system-type 'gnu/linux)
   "Are we running on a GNU/Linux system?")

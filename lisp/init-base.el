@@ -43,31 +43,12 @@
 (with-no-warnings
   ;; Key Modifiers
   (cond
-   (sys/win32p
-    ;; make PC keyboard's Win key or other to type Super or Hyper
-    ;; (setq w32-pass-lwindow-to-system nil)
-    (setq w32-lwindow-modifier 'super     ; Left Windows key
-          w32-apps-modifier 'hyper)       ; Menu/App key
-    (w32-register-hot-key [s-t]))
    (sys/mac-port-p
-    ;; Compatible with Emacs Mac port
+    ;; no need to use super
     (setq mac-option-modifier 'meta
-          mac-command-modifier 'super)
-    (bind-keys ([(super a)] . mark-whole-buffer)
-               ([(super c)] . kill-ring-save)
-               ([(super l)] . goto-line)
-               ([(super q)] . save-buffers-kill-emacs)
-               ([(super s)] . save-buffer)
-               ([(super v)] . yank)
-               ([(super w)] . delete-frame)
-               ([(super z)] . undo))))
+          mac-command-modifier 'meta)))
 
   ;; Optimization
-  (when sys/win32p
-    (setq w32-get-true-file-attributes nil   ; decrease file IO workload
-          w32-use-native-image-API t         ; use native w32 API
-          w32-pipe-read-delay 0              ; faster IPC
-          w32-pipe-buffer-size 65536))       ; read more at a time (64K, was 4K)
   (unless sys/macp
     (setq command-line-ns-option-alist nil))
   (unless sys/linuxp
@@ -94,8 +75,7 @@
 (prefer-coding-system 'utf-8)
 (setq locale-coding-system 'utf-8)
 (setq system-time-locale "C")
-(unless sys/win32p
-  (set-selection-coding-system 'utf-8))
+(set-selection-coding-system 'utf-8)
 
 ;; Environment
 (when (or sys/mac-x-p sys/linux-x-p (daemonp))

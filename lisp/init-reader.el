@@ -85,13 +85,7 @@
                                (regexp-quote name)))
              (id (car (esxml-node-children (esxml-query selector content)))))
         (and id (intern id))))
-    (advice-add #'nov-content-unique-identifier :override #'my-nov-content-unique-identifier))
-
-  ;; Fix encoding issue on Windows
-  (when sys/win32p
-    (setq process-coding-system-alist
-          (cons `(,nov-unzip-program . (gbk . gbk))
-                process-coding-system-alist))))
+    (advice-add #'nov-content-unique-identifier :override #'my-nov-content-unique-identifier)))
 
 ;; Atom/RSS reader
 (use-package elfeed

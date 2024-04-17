@@ -38,9 +38,6 @@
 (use-package magit
   :init (setq magit-diff-refine-hunk t)
   :config
-  (when sys/win32p
-    (setenv "GIT_ASKPASS" "git-gui--askpass"))
-
   ;; Unbind M-1, M-2, M-3, and M-4 shortcuts due to conflict with `ace-window'
   (unbind-key "M-1" magit-mode-map)
   (unbind-key "M-2" magit-mode-map)
