@@ -26,3 +26,5 @@ persistent-scratch/
 /abbrev_defs
 /org-roam.db
 /tree-sitter/
+/.mc-lists.el
+/forge-database.sqlite
