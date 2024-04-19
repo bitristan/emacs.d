@@ -36,6 +36,9 @@
   :hook (after-init . (lambda ()
                         (windmove-default-keybindings 'super))))
 
+(use-package winum
+  :hook (after-init . winum-mode))
+
 ;; Restore old window configurations
 (use-package winner
   :ensure nil
