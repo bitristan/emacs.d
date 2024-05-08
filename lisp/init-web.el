@@ -88,7 +88,7 @@
 
 ;; JavaScript
 (use-package js
-  :init (setq js-indent-level 2))
+  :init (setq js-indent-level 4))
 
 (use-package js2-mode
   :mode (("\\.js\\'" . js2-mode)
