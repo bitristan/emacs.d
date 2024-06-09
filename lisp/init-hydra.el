@@ -118,37 +118,6 @@
         ("V" diff-hl-flydiff-mode "live gutter" :toggle t)
         ("M" diff-hl-margin-mode "margin gutter" :toggle t)
         ("D" diff-hl-dired-mode "dired gutter" :toggle t))
-       "Theme"
-       (("t a" (centaur-load-theme 'auto) "auto"
-         :toggle (eq centaur-theme 'auto) :exit t)
-        ("t m" (centaur-load-theme 'random) "random"
-         :toggle (eq centaur-theme 'random) :exit t)
-        ("t s" (centaur-load-theme 'system) "system"
-         :toggle (eq centaur-theme 'system) :exit t)
-        ("t d" (centaur-load-theme 'default) "default"
-         :toggle (centaur-theme-enable-p 'default) :exit t)
-        ("t p" (centaur-load-theme 'pro) "pro"
-         :toggle (centaur-theme-enable-p 'pro) :exit t)
-        ("t k" (centaur-load-theme 'dark) "dark"
-         :toggle (centaur-theme-enable-p 'dark) :exit t)
-        ("t l" (centaur-load-theme 'light) "light"
-         :toggle (centaur-theme-enable-p 'light) :exit t)
-        ("t w" (centaur-load-theme 'warm) "warm"
-         :toggle (centaur-theme-enable-p 'warm) :exit t)
-        ("t c" (centaur-load-theme 'cold) "cold"
-         :toggle (centaur-theme-enable-p 'cold) :exit t)
-        ("t y" (centaur-load-theme 'day) "day"
-         :toggle (centaur-theme-enable-p 'day) :exit t)
-        ("t n" (centaur-load-theme 'night) "night"
-         :toggle (centaur-theme-enable-p 'night) :exit t)
-        ("t o" (centaur-load-theme
-                (intern (completing-read "Load custom theme: "
-                                         (mapcar #'symbol-name
-				                                 (custom-available-themes)))))
-         "others"
-         :toggle (not (or (rassoc (car custom-enabled-themes) centaur-theme-alist)
-                          (rassoc (cadr custom-enabled-themes) centaur-theme-alist)))
-         :exit t))
        "Package Archive"
        (("p m" (centaur-set-package-archives 'melpa t)
          "melpa" :toggle (eq centaur-package-archives 'melpa) :exit t)

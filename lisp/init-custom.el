@@ -127,57 +127,6 @@
                               name)))
                     centaur-package-archives-alist)))
 
-(defcustom centaur-theme-alist
-  '((default . doom-one)
-    (pro     . doom-monokai-pro)
-    (dark    . doom-vibrant)
-    (light   . doom-one-light)
-    (warm    . doom-solarized-light)
-    (cold    . doom-palenight)
-    (day     . doom-tomorrow-day)
-    (night   . doom-tomorrow-night))
-  "List of themes mapped to internal themes."
-  :group 'centaur
-  :type '(alist :key-type (symbol :tag "Theme")
-                :value-type (symbol :tag "Internal theme")))
-
-(defcustom centaur-auto-themes '(("8:00"  . doom-one-light)
-				                 ("19:00" . doom-one))
-  "List of themes mapped to the time they should be loaded.
-
-The keywords `:sunrise' and `:sunset' can be used for the time
-if the option `calendar-latitude' and option `calendar-longitude' are set.
-For example:
-  \\='((:sunrise . doom-one-light)
-    (:sunset  . doom-one))"
-  :group 'centaur
-  :type '(alist :key-type (string :tag "Time")
-                :value-type (symbol :tag "Theme")))
-
-(defcustom centaur-system-themes '((light . doom-one-light)
-				                   (dark  . doom-one))
-  "List of themes related the system appearance.
-
-It's only available on macOS currently."
-  :group 'centaur
-  :type '(alist :key-type (symbol :tag "Appearance")
-                :value-type (symbol :tag "Theme")))
-
-(defcustom centaur-theme 'default
-  "The color theme."
-  :group 'centaur
-  :type `(choice (const :tag "Auto" auto)
-                 (const :tag "Random" random)
-                 (const :tag "System" system)
-                 ,@(mapcar
-                    (lambda (item)
-                      (let ((name (car item)))
-                        (list 'const
-                              :tag (capitalize (symbol-name name))
-                              name)))
-                    centaur-theme-alist)
-                 symbol))
-
 (defcustom centaur-completion-style 'childframe
   "Completion display style."
   :group 'centaur
