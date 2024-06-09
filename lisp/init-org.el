@@ -35,7 +35,6 @@
 
 (use-package org
   :ensure nil
-  :custom-face (org-ellipsis ((t (:foreground unspecified))))
   :pretty-hydra
   ;; See `org-structure-template-alist'
   ((:title (pretty-hydra-title "Org Template" 'sucicon "nf-custom-orgmode" :face 'nerd-icons-green)
@@ -160,7 +159,6 @@ prepended to the element after the #+HEADER: tag."
         org-log-done 'time
         org-catch-invisible-edits 'smart
         org-startup-indented t
-        org-ellipsis (if (char-displayable-p ?⏷) "\t⏷" nil)
         org-pretty-entities nil
         org-hide-emphasis-markers t)
 
