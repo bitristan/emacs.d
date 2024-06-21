@@ -55,7 +55,6 @@
       :custom-face
       (eldoc-box-border ((t (:inherit posframe-border :background unspecified))))
       (eldoc-box-body ((t (:inherit tooltip))))
-      :hook ((eglot-managed-mode . eldoc-box-hover-at-point-mode))
       :config
       ;; Prettify `eldoc-box' frame
       (setf (alist-get 'left-fringe eldoc-box-frame-parameters) 8

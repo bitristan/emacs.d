@@ -28,3 +28,4 @@ persistent-scratch/
 /tree-sitter/
 /.mc-lists.el
 /forge-database.sqlite
+/tramp
