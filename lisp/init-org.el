@@ -186,7 +186,10 @@ prepended to the element after the #+HEADER: tag."
                                 "Adapt `org-modern-mode'."
                                 ;; Disable Prettify Symbols mode
                                 (setq prettify-symbols-alist nil)
-                                (prettify-symbols-mode -1)))))
+                                (prettify-symbols-mode -1))))
+    :config
+    (if sys/macp
+        (setq org-modern-fold-stars '(("▶" . "▼") ("▹" . "▿") ("▸" . "▾")))))
 
   ;; Babel
   (setq org-confirm-babel-evaluate nil
