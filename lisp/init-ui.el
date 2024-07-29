@@ -81,7 +81,8 @@
   :hook (after-init . doom-modeline-mode)
   :init
   (setq doom-modeline-icon centaur-icon
-        doom-modeline-minor-modes t)
+        doom-modeline-minor-modes t
+        doom-modeline-buffer-file-name-style 'relative-from-project)
   :bind (:map doom-modeline-mode-map
          ("C-<f6>" . doom-modeline-hydra/body))
   :pretty-hydra
