@@ -189,6 +189,7 @@ Install the doc if it's not installed."
 (use-package solidity-mode)
 (use-package groovy-mode)
 (use-package bazel)
+(use-package kotlin-ts-mode)
 
 (use-package protobuf-mode
   :hook (protobuf-mode . (lambda ()
