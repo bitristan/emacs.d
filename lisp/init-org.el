@@ -82,8 +82,7 @@
                   (if (or (region-active-p) (looking-back "^\s*" 1))
                       (org-hydra/body)
                     (self-insert-command 1)))))
-  :hook (((org-babel-after-execute org-mode) . org-redisplay-inline-images) ; display image
-         (org-mode . (lambda ()
+  :hook ((org-mode . (lambda ()
                        "Beautify org symbols."
                        (when centaur-prettify-org-symbols-alist
                          (if prettify-symbols-alist
