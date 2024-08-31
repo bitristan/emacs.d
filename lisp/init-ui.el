@@ -74,7 +74,7 @@
 ;; Theme
 (use-package modus-themes
   :init
-  (load-theme 'modus-operandi-tinted t))
+  (load-theme 'modus-operandi t))
 
 ;; Mode-line
 (use-package doom-modeline
