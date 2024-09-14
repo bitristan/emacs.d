@@ -118,7 +118,6 @@ Otherwise the startup will be very slow."
 (require 'init-snippet)
 
 (require 'init-bookmark)
-(require 'init-calendar)
 (require 'init-dashboard)
 (require 'init-dired)
 (require 'init-highlight)
@@ -133,11 +132,8 @@ Otherwise the startup will be very slow."
 
 (require 'init-markdown)
 (require 'init-org)
-(require 'init-reader)
 
 (require 'init-dict)
-(require 'init-docker)
-(require 'init-player)
 (require 'init-utils)
 
 (require 'init-evil)
@@ -155,7 +151,6 @@ Otherwise the startup will be very slow."
 (require 'init-rust)
 (require 'init-python)
 (require 'init-ruby)
-(require 'init-elixir)
 (require 'init-web)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
