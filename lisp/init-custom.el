@@ -38,13 +38,6 @@
   :group 'convenience
   :link '(url-link :tag "Homepage" "https://github.com/seagle0128/.emacs.d"))
 
-(defcustom centaur-logo (expand-file-name
-                         (if (display-graphic-p) "logo.png" "banner.txt")
-                         user-emacs-directory)
-  "Set Centaur logo. nil means official logo."
-  :group 'centaur
-  :type 'string)
-
 (defcustom centaur-full-name user-full-name
   "Set user full name."
   :group 'centaur
@@ -133,12 +126,6 @@
   :type '(choice (const :tag "Minibuffer" minibuffer)
                  (const :tag "Child Frame" childframe)))
 
-(defcustom centaur-dashboard (not (daemonp))
-  "Display dashboard at startup or not.
-If Non-nil, use dashboard, otherwise will restore previous session."
-  :group 'centaur
-  :type 'boolean)
-
 (defcustom centaur-lsp 'eglot
   "Set language server.
 
@@ -149,12 +136,6 @@ nil means disabled."
   :type '(choice (const :tag "LSP Mode" lsp-mode)
                  (const :tag "Eglot" eglot)
                  (const :tag "Disable" nil)))
-
-(defcustom centaur-tree-sitter t
-  "Enable tree-sitter or not.
-Native tree-sitter is introduced in 29."
-  :group 'centaur
-  :type 'boolean)
 
 (defcustom centaur-lsp-format-on-save nil
   "Auto format buffers on save."

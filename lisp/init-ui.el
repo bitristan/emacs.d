@@ -50,9 +50,6 @@
 ;; Initial frame
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
-;; Logo
-(setq fancy-splash-image centaur-logo)
-
 ;; Title
 (setq frame-title-format '("Centaur Emacs - %b")
       icon-title-format frame-title-format)

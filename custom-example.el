@@ -4,7 +4,6 @@
 ;;;       Put your own configurations in custom-post.el to override default configurations.
 ;;; Code:
 
-;; (setq centaur-logo nil)                        ; Logo file or nil (official logo)
 ;; (setq centaur-full-name "user name")           ; User full name
 ;; (setq centaur-mail-address "user@email.com")   ; Email address
 ;; (setq centaur-proxy "127.0.0.1:7890")          ; HTTP/HTTPS proxy
@@ -13,11 +12,9 @@
 ;; (setq centaur-icon nil)                        ; Display icons or not: t or nil
 (setq centaur-package-archives 'netease)         ; Package repo: melpa, emacs-cn, bfsu, netease, sjtu, tencent, tuna or ustc
 (setq centaur-completion-style 'minibuffer)    ; Completion display style: minibuffer or childframe
-;; (setq centaur-dashboard nil)                   ; Display dashboard at startup or not: t or nil
 ;; (setq centaur-lsp 'lsp-mode)                   ; Set LSP client: lsp-mode, eglot or nil
 ;; (setq centaur-lsp-format-on-save t)            ; Auto format buffers on save: t or nil
 ;; (setq centaur-lsp-format-on-save-ignore-modes '(c-mode c++-mode python-mode markdown-mode)) ; Ignore format on save for some languages
-(setq centaur-tree-sitter t)
 ;; (setq centaur-prettify-symbols-alist nil)      ; Alist of symbol prettifications. Nil to use font supports ligatures.
 ;; (setq centaur-prettify-org-symbols-alist nil)  ; Alist of symbol prettifications for `org-mode'
 
@@ -35,7 +32,7 @@
              when (font-installed-p font)
              return (set-face-attribute 'default nil
                                         :family font
-                                        :height (cond (sys/macp 140)
+                                        :height (cond (sys/macp 150)
                                                       (t 100))))
 
     ;; Specify font for all unicode characters
