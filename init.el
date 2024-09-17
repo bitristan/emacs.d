@@ -118,7 +118,6 @@ Otherwise the startup will be very slow."
 (require 'init-snippet)
 
 (require 'init-bookmark)
-(require 'init-dashboard)
 (require 'init-dired)
 (require 'init-highlight)
 (require 'init-ibuffer)
